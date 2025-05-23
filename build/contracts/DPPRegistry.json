@@ -1,0 +1,161 @@
+{
+	"contractName": "DPPRegistry",
+	"abi": [
+		{
+			"inputs": [
+				{
+					"internalType": "string",
+					"name": "productId",
+					"type": "string"
+				},
+				{
+					"internalType": "bytes32",
+					"name": "dataHash",
+					"type": "bytes32"
+				}
+			],
+			"name": "createDPP",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": false,
+					"internalType": "string",
+					"name": "productId",
+					"type": "string"
+				},
+				{
+					"indexed": false,
+					"internalType": "bytes32",
+					"name": "dataHash",
+					"type": "bytes32"
+				},
+				{
+					"indexed": false,
+					"internalType": "address",
+					"name": "owner",
+					"type": "address"
+				}
+			],
+			"name": "DPPCreated",
+			"type": "event"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": false,
+					"internalType": "string",
+					"name": "productId",
+					"type": "string"
+				},
+				{
+					"indexed": false,
+					"internalType": "bytes32",
+					"name": "newHash",
+					"type": "bytes32"
+				},
+				{
+					"indexed": false,
+					"internalType": "address",
+					"name": "updater",
+					"type": "address"
+				}
+			],
+			"name": "DPPUpdated",
+			"type": "event"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "string",
+					"name": "productId",
+					"type": "string"
+				},
+				{
+					"internalType": "bytes32",
+					"name": "newHash",
+					"type": "bytes32"
+				}
+			],
+			"name": "updateDPP",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "string",
+					"name": "",
+					"type": "string"
+				}
+			],
+			"name": "dpps",
+			"outputs": [
+				{
+					"internalType": "bytes32",
+					"name": "dataHash",
+					"type": "bytes32"
+				},
+				{
+					"internalType": "address",
+					"name": "owner",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "createdAt",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "updatedAt",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "string",
+					"name": "productId",
+					"type": "string"
+				}
+			],
+			"name": "getDPP",
+			"outputs": [
+				{
+					"internalType": "bytes32",
+					"name": "dataHash",
+					"type": "bytes32"
+				},
+				{
+					"internalType": "address",
+					"name": "owner",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "createdAt",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "updatedAt",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		}
+	]
+  }
+
+
