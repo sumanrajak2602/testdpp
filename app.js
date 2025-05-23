@@ -15,7 +15,19 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors()); // Enable CORS
+
+const allowedOrigins = ['https://testdppfrontend-42cm.vercel.app'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true // if you're using cookies or need authorization headers
+}));
 app.use(express.json()); // Body parser
 
 // Routes
