@@ -17,7 +17,7 @@ connectDB();
 // Middleware
 
 // Allow only your frontend (recommended) or * (for testing only)
-const allowedOrigins = ['https://testdpp-frontend.vercel.app']; // replace with your actual frontend domain
+const allowedOrigins = ['https://testdppfrontend.vercel.app']; // replace with your actual frontend domain
 
 app.use(cors({
   origin: allowedOrigins,
