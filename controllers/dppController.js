@@ -61,9 +61,13 @@ exports.createDPP = async (req, res) => {
     // Record hash on blockchain
     const dppJson = dpp.toJSON();
     console.log('Recording hash on blockchain...');
-    await recordDPPHash(dpp.productId, dppJson);
+    const txHash = await recordDPPHash(dpp.productId, dppJson); // 🔁 capture txHash
 
-    res.status(201).json(dpp);
+    res.status(201).json({
+      message: 'DPP created successfully',
+      dpp,
+      transactionHash: txHash, // 🔁 include in response
+    });
   } catch (err) {
     console.error('Error creating DPP:', err);
     res.status(400).json({ error: err.message });
@@ -90,20 +94,20 @@ exports.getDPP = async (req, res) => {
   }
 };
 
-
 exports.addLifecycleEvent = async (req, res) => {
   try {
-    const productId = req.params.productId.trim(); // Clean in case of trailing newlines
+    const productId = req.params.productId.trim();
 
     const dpp = await DPP.findOne({ productId });
-    
-    // Upload document to IPFS
+    if (!dpp) {
+      return res.status(404).json({ error: 'DPP not found' });
+    }
+
     let ipfsHash = '';
     if (req.file) {
       ipfsHash = await uploadToIPFS(req.file);
     }
 
-    // Create event with IPFS hash
     const eventData = {
       ...req.body,
       ipfsHash
@@ -113,13 +117,17 @@ exports.addLifecycleEvent = async (req, res) => {
     await dpp.save();
     console.log('💾 DPP document saved to DB.');
 
-    // Update hash on blockchain
-    await updateDPPHash(dpp.productId, dpp.toJSON());
+    // ⛓️ Blockchain update and capture transaction hash
+    const txHash = await updateDPPHash(dpp.productId, dpp.toJSON());
     console.log('🔗 Blockchain hash updated.');
 
-
-    res.json(dpp);
+    res.json({
+      message: 'Lifecycle event added successfully',
+      dpp,
+      transactionHash: txHash // ✅ Send this to frontend
+    });
   } catch (err) {
+    console.error('❌ Error in addLifecycleEvent:', err);
     res.status(400).json({ error: err.message });
   }
 };

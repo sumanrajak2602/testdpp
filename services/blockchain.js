@@ -53,6 +53,7 @@ const recordDPPHash = async (productId, dppData) => {
   });
 
   console.log('Transaction successful:', tx.transactionHash);
+  return tx.transactionHash;
 };
 
 
@@ -85,6 +86,7 @@ const updateDPPHash = async (productId, updatedData) => {
     console.log('✅ Transaction successful!');
     console.log('📄 Transaction Hash:', receipt.transactionHash);
     console.log('📦 Block Number:', receipt.blockNumber);
+    return receipt.transactionHash;
   } catch (error) {
     console.error('❌ Error sending transaction:', error.message);
     throw error; // rethrow for outer catch block if needed
