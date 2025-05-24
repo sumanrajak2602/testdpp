@@ -9,7 +9,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 //router.post('/', protect, dppController.createDPP);
 
 
-router.post('/', protect, upload.single('document'), dppController.createDPP);
+router.post('/', upload.single('document'), dppController.createDPP);
 
 router.get('/', dppController.getAllDPPs);
 
@@ -19,7 +19,6 @@ router.get('/:productId', dppController.getDPP);
 // Add lifecycle event (Authenticated)
 router.patch(
     '/:productId/lifecycle',
-    protect,
     upload.single('document'), // Add this
     dppController.addLifecycleEvent
   );
