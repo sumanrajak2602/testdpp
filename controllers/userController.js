@@ -3,53 +3,23 @@ const asyncHandler = require('express-async-handler');
 
 // @desc    Register user
 // @route   POST /api/users/register
-const registerUser = async (req, res) => {
-  try {
-    const { username, email, password, role } = req.body;
+exports.registerUser = asyncHandler(async (req, res) => {
+  const { username, email, password, role } = req.body;
 
-    console.log('User is getting registered');
+      console.log('User is getting registered');
 
-    // Optional: Check if required fields are present
-    if (!username || !email || !password) {
-      return res.status(400).json({
-        success: false,
-        message: 'Please provide username, email, and password'
-      });
-    }
-
-    // Optional: Check if user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(409).json({
-        success: false,
-        message: 'User already exists with this email'
-      });
-    }
-
-    const user = await User.create({
-      username,
-      email,
-      password,
-      role
-    });
-
-    console.log('User registered successfully');
-
-    res.status(201).json({
-      success: true,
-      token: user.generateAuthToken()
-    });
-
-  } catch (error) {
-    console.error('Error registering user:', error.message);
-    res.status(500).json({
-      success: false,
-      message: 'Internal server error'
-    });
-  }
-};
-
-module.exports = { registerUser };
+  const user = await User.create({
+    username,
+    email,
+    password,
+    role
+  });
+    console.log('Uploading registered success..');
+  res.status(201).json({
+    success: true,
+    token: user.generateAuthToken()
+  });
+});
 
 // @desc    Login user
 // @route   POST /api/users/login
