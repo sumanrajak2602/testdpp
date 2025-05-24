@@ -16,13 +16,16 @@ connectDB();
 
 // Middleware
 
-const allowedOrigins = ['https://testdppfrontend-42cm.vercel.app'];
+// Allow only your frontend (recommended) or * (for testing only)
+const allowedOrigins = ['https://testdpp-frontend.vercel.app']; // replace with your actual frontend domain
 
 app.use(cors({
-  origin: ['https://testdppfrontend-e59z.vercel.app/'], // allow frontend domain
-  methods: ['GET', 'POST', 'PATCH', 'DELETE']
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  credentials: true // if you're using cookies, auth headers etc.
 }));
 
+app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json()); // Body parser
 
