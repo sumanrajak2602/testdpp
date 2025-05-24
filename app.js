@@ -9,20 +9,16 @@ const errorHandler = require('./middleware/error');
 // Create Express app
 const app = express();
 
-// Allow only your frontend (recommended) or * (for testing only)
-const allowedOrigins = ['https://testdppfrontend.vercel.app'];
+const allowedOrigins = ['https://testdppfrontend.vercel.app']; // Double-check for typos
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    credentials: true,
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization']
+  })
+);
 
 // Connect to MongoDB
 connectDB();
